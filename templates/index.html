@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Time &amp; Readability Calculator: TechEngage</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+  <h1>Reading Time &amp; Readability Calculator</h1>
+  <p class="muted">TechEngage. Paste an article to get its reading stats.</p>
+
+  {% if error %}
+  <div class="alert error">{{ error }}</div>
+  {% endif %}
+
+  <form action="{{ url_for('analyze_route') }}" method="post" class="card">
+    <label for="article"><strong>Article text</strong></label>
+    <textarea id="article" name="article" rows="14" required
+              placeholder="Paste your article here..."></textarea>
+    <button type="submit">Analyze</button>
+  </form>
+
+  <div class="card">
+    <h2>What you get</h2>
+    <ul>
+      <li>Word count, character count, sentence count</li>
+      <li>Estimated reading time (at 200 words per minute)</li>
+      <li>Flesch Reading Ease score with a plain-English explanation</li>
+      <li>The 3 longest sentences, highlighted</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

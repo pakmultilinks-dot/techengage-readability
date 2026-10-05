@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Results: Reading Time &amp; Readability Calculator</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+  <h1>Analysis Results</h1>
+  <p><a href="{{ url_for('index') }}">&larr; Analyze another article</a></p>
+
+  <div class="stats">
+    <div class="stat"><span class="label">Words</span><span class="value">{{ stats.word_count }}</span></div>
+    <div class="stat"><span class="label">Characters</span><span class="value">{{ stats.char_count }}</span></div>
+    <div class="stat"><span class="label">Sentences</span><span class="value">{{ stats.sentence_count }}</span></div>
+    <div class="stat"><span class="label">Reading time</span><span class="value">{{ stats.reading_minutes }}m {{ stats.reading_seconds }}s</span></div>
+  </div>
+
+  <h2>Readability</h2>
+  <div class="score-wrap">
+    <div class="score">{{ stats.flesch }}</div>
+    <div>
+      <strong>Flesch Reading Ease</strong> (0 = very hard, 100 = very easy)
+      <p>{{ stats.flesch_explanation }}</p>
+    </div>
+  </div>
+  <div class="meter"><div class="fill" style="width: {{ [[stats.flesch, 0]|max, 100]|min }}%"></div></div>
+
+  <h2>3 longest sentences</h2>
+  <ol>
+    {% for s in stats.longest_sentences %}
+    <li class="longest"><mark>{{ s.text }}</mark> <span class="muted">({{ s.words }} words)</span></li>
+    {% endfor %}
+  </ol>
+</div>
+</body>
+</html>
